@@ -14,7 +14,7 @@ import ReactDOM from 'react-dom/client'
 // }
 
 const anotherElement= (
-  <a href='https://google.com' target='_blank'>vist google</a>
+  <a href='https://google.com' target='_blank'>visit google</a>
 )
 
 const reactElement = React.createElement(
