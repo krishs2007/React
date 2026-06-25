@@ -1,4 +1,4 @@
-import { useActionState, useState, useCallback } from 'react'
+import { useActionState, useState, useCallback, useEffect, useRef} from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
@@ -9,6 +9,10 @@ function App() {
   const [numberAllowed, setNumberAllowed] = useState(false)
   const [charAllowed, setCharAllowed] = useState(false)
   const [password, setPassword] = useState('')
+
+  // useRef hook
+  const passwordRef = useRef(null)
+
 
   const passwordGenerator = useCallback(() => {
     let pass = '';
@@ -21,8 +25,17 @@ function App() {
       pass += str.charAt(char);
     }
     setPassword(pass) 
-  }, [length, numberAllowed, charAllowed, setPassword])
+  }, [length, numberAllowed, charAllowed, setPassword]) // Do not give password , because if any changes are made in it , it will be keep updating, instead give setpassword , Or Do not give any of them
 
+  const copyPasswordToClipboard = useCallback(() => {
+    passwordRef.current?.select()
+    passwordRef.current?.setSelectionRange(0, 999)
+    window.navigator.clipboard.writeText(password)
+  }, [password])
+  
+  useEffect(() => {
+    passwordGenerator() 
+  }, [length, numberAllowed, charAllowed, passwordGenerator])
   return (
     <div>
       <div className='w-full max-w-md mx-auto shadow-md rounded-lg px-4 py-3 my-8 text-orange-500 bg-gray-800'>
@@ -34,10 +47,11 @@ function App() {
             className="outline-none w-full py-1 px-3"
             placeholder='Password'
             readOnly
+            ref={passwordRef}
           />
-          <button className='outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0'>Copy</button>
+          <button onClick={copyPasswordToClipboard} className='outline-none hover:bg-blue-500 bg-blue-700 text-white px-3 py-0.5 shrink-0'>Copy</button>
         </div>
-        <div className='flex items-center gap-x-1'>
+        <div className='flex items-center gap-x-2'>
           <input 
           type="range" 
           min={6}
@@ -52,6 +66,7 @@ function App() {
           type="checkbox"
           defaultChecked={numberAllowed}
           id="numberInput" 
+          className='ml-2'
           onChange={() => {setNumberAllowed((prev) => !prev)}}
           />
           <label htmlFor='numberInput'>Numbers</label>
@@ -61,6 +76,7 @@ function App() {
           type="checkbox"
           defaultChecked={charAllowed}
           id="characterInput" 
+          className='ml-2'
           onChange={() => {setCharAllowed((prev) => !prev)}}
           />
           <label htmlFor='characterInput'>Character</label>
