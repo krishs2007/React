@@ -3,9 +3,9 @@ import UserContext from  '../context/UserContext'
 
 function Login() {
     const [username,setUsername] = useState('')
-    const [password, setPassword] = usestate('')
+    const [password, setPassword] = useState('')
     const {setUser} = useContext(UserContext)
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
         e.preventDefault()
         setUser({username,password})
     }
@@ -18,3 +18,5 @@ function Login() {
         </div>
     )
 }
+
+export default Login
