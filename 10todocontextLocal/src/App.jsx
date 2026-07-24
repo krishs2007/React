@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
@@ -11,11 +11,33 @@ function App() {
     setTodos((prev) => [{id: Date.now(),...todo}, ...prev,]) 
   }
 
-  const updatedTodo = (id, todo) => {
+  const updateTodo = (id, todo) => {
     setTodos((prev) => (prev.map((prevtodo) => (prevtodo.id===id ? todo : prevtodo))))
   }
+
+  const deleteTodo = (id) => {
+    setTodos((prev) => prev.filter((todo) => todo.id!==id))
+  }   
+
+  const toggleComplete = (id) => {
+    setTodos((prev) => prev.map((prevtodo) => prevtodo.id===id ? {...prevtodo, completed : !prevtodo.completed} : prevtodo))
+  }
+
+  useEffect(() => {
+     JSON.parse(localStorage.getItem('todos'))
+
+     if(todos && todos.length>0)
+     {
+      setTodos(todos)
+     }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('todos',JSON.stringify(todos))
+  })
+
   return (
-    <TodoProvider value={{todos, addTodo, updatedTodo, deleteTodo, toggleCompleted}}>
+    <TodoProvider value={{todos, addTodo, updateTodo, deleteTodo, toggleCompleted}}>
       <div className="bg-[#172842] min-h-screen py-8">
         <div className="w-full max-w-2xl mx-auto shadow-md rounded-lg px-4 py-3 text-white">
             <h1 className="text-2xl font-bold text-center mb-8 mt-2">Manage Your Todos</h1>
