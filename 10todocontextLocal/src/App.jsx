@@ -8,9 +8,12 @@ import { TodoProvider } from './contexts'
 function App() {
   const [todos, setTodos] = useState([])
   const addTodo = (todo) => {
-    setTodos(todo)
+    setTodos((prev) => [{id: Date.now(),...todo}, ...prev,]) 
   }
 
+  const updatedTodo = (id, todo) => {
+    setTodos((prev) => (prev.map((prevtodo) => (prevtodo.id===id ? todo : prevtodo))))
+  }
   return (
     <TodoProvider value={{todos, addTodo, updatedTodo, deleteTodo, toggleCompleted}}>
       <div className="bg-[#172842] min-h-screen py-8">
