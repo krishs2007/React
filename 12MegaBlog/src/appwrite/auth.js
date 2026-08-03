@@ -28,7 +28,7 @@ export class AuthService {
            {
                 // call another Method
             }
-            else return userAccount 
+            else return userAccount;
         } catch(error) {
             throw error;
         }
@@ -41,8 +41,25 @@ export class AuthService {
             throw error;
         }
     }
+    async getCurrentUser() {
+        try {
+            return await this.account.get();
+        } catch (error) {
+            console.log('Appwrite Service :: getCurrentUser :: error', error)
+        }
+        
+        return null;
+    }
+    async logout() {
+        try {
+            await this.account.deleteSession('current');
+        }
+        catch (error) {
+            console.log('Appwrite Service :: logout :: error', error);
+        }
+    }
 }
 
 const authService = new AuthService();
 
-export default AuthService
+export default authService
