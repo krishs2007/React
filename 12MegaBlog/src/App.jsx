@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
@@ -22,10 +23,15 @@ function App() {
       }
     })
     .finally(() => setLoading(false))
-  }, [])
+  }, [dispatch])
   
   return !loading ? (
-    <div className='min-h-sc'></div>
+    <div className='min-h-screen flex flex-wrap content-between bg-gray-400'>
+      <div className='w-full block'>
+        <Header/>
+        <Footer/>
+      </div>
+    </div>
   ) : null
 }
 

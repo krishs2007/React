@@ -1,4 +1,4 @@
-import conf from '../conf.js'
+import conf from '../conf/config.js'
 import { Client, ID, Databases, Storage, Query } from "appwrite";
 
 export class Service{
@@ -7,7 +7,7 @@ export class Service{
     bucket;
     
     constructor() {
-        this.client.setEndpoint(conf.appwriteurl).setProject(conf.appwriteProjectId);
+        this.client.setEndpoint(conf.appwriteUrl).setProject(conf.appwriteProjectId);
         this.databases = new Databases(this.client);
         this.bucket = new Storage(this.client);
     }
@@ -92,7 +92,7 @@ export class Service{
 
     async uploadFile(file) {
         try {
-            return await this.bucket.creareFile(
+            return await this.bucket.createFile(
                 conf.appwriteBucketId,
                 ID.unique(),
                 file
