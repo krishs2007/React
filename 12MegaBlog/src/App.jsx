@@ -7,6 +7,7 @@ import './App.css'
 import authSlice from './store/authSlice'
 import authService from './appwrite/auth'
 import { login, logout } from './store/authSlice'
+import Header from '.components/Header/Header'
 
 function App() {
   console.log(import.meta.env.VITE_APPWRITE_URL);
