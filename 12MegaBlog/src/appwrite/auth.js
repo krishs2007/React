@@ -2,7 +2,7 @@ import { Client, Account, ID } from "appwrite";
 import conf from '../conf/config.js';
 // const client = new Client()
 //     .setEndpoint('https://<REGION>.cloud.appwrite.io/v1') // Your API Endpoint
-//     .setProject('<PROJECT_ID>');                 // Your project ID
+//     .setProject('<PROJECT_ID>');                 // Your project ID  
 
 // const account = new Account(client);
 
