@@ -110,7 +110,7 @@ export class Service{
                 fileId
             )
             return true
-        } catch (error) {
+        } catch (error) { //
             console.log("Appwrite Service :: deleteFiles :: error", error);
             return false
         }
