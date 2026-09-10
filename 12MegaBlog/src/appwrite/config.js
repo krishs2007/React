@@ -94,7 +94,7 @@ export class Service{
         try {
             return await this.bucket.createFile(
                 conf.appwriteBucketId,
-                ID.unique(),
+                ID.unique(), //
                 file
             )
         } catch (error) {
